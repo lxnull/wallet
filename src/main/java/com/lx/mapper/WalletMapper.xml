@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.dao.WalletDao">
+
+    <resultMap id="WalletMap" type="wallet">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <id column="uid" property="uid" jdbcType="INTEGER"/>
+        <id column="balance" property="balance" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+    <update id="pay" parameterType="wallet">
+        update wallet set balance=#{balance} where id=#{id};
+    </update>
+
+    <select id="getWalletList" resultMap="WalletMap">
+        select * from wallet;
+    </select>
+
+    <select id="getWalletById" resultType="com.lx.pojo.Wallet" parameterType="int">
+        select * from wallet where id=#{id};
+    </select>
+
+    <select id="getWalletByUserId" resultType="com.lx.pojo.Wallet" parameterType="int">
+        select * from wallet where uid=#{uid};
+    </select>
+</mapper>

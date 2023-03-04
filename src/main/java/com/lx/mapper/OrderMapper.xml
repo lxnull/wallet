@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.dao.OrderDao">
+    <resultMap id="OrderMap" type="order">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="wid" property="wid" jdbcType="INTEGER"/>
+        <result column="price" property="price" jdbcType="INTEGER"/>
+        <result column="flag" property="flag" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="BIGINT"/>
+        <result column="pay_time" property="payTime" jdbcType="BIGINT"/>
+        <result column="refund" property="refund" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <insert id="submitOrder" parameterType="order">
+        insert into w_order (id, wid, price, flag, create_time, pay_time, refund)
+        values (#{id}, #{wid}, #{price}, #{flag}, #{createTime}, #{payTime}, #{refund});
+    </insert>
+
+    <update id="updateFlag" parameterType="order">
+        update w_order set flag=#{flag},pay_time=#{payTime} where id=#{id};
+    </update>
+
+    <select id="getOrderList" resultMap="OrderMap">
+        select *
+        from w_order
+    </select>
+
+    <select id="getOrderListByWid" resultMap="OrderMap">
+        select * from w_order where wid=#{wid};
+    </select>
+</mapper>
